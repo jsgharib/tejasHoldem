@@ -27,11 +27,11 @@ public class HoldemRunner {
             List<Card> testBoard = new ArrayList<Card>(5);
             List<Card> testedHand = new ArrayList<Card>(5);
             
-          int i = 0;
+          int i = 6;
           int j = 2;
           testHand.add(new Card(ranks[i], suits[j]));
             
-          i = 4;
+          i = 6;
           j = 1;
           testHand.add(new Card(ranks[i], suits[j]));
             
@@ -40,10 +40,10 @@ public class HoldemRunner {
           testBoard.add(new Card(ranks[i], suits[j]));
             
           i = 2;
-          j = 3;
+          j = 2;
           testBoard.add(new Card(ranks[i], suits[j]));
             
-          i = 12;
+          i = 2;
           j = 3;
           testBoard.add(new Card(ranks[i], suits[j]));
            
@@ -55,8 +55,7 @@ public class HoldemRunner {
           j = 3;
           testBoard.add(new Card(ranks[i], suits[j]));
             
-            holdem.combineHands(testHand, testBoard);
-            testedHand = holdem.isThreeOfAKind();
+            testedHand = holdem.checkCards(testHand,testBoard);
             for(Card c : testedHand){
                 System.out.println(c);
             }

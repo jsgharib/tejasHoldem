@@ -25,6 +25,11 @@ public class player extends AbstractPlayer {
         bet = amount;
     }
     
+    public int placeBet(){
+        totalMoney -= bet;
+        return bet;
+    }
+    
     public void fold(){
         fold = true;
     }

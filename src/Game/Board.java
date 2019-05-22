@@ -17,9 +17,6 @@ public abstract class Board {
         deck = new Deck();
     }
     
-    public int bettingRound(){
-        
-    }
 
     public String[] getSuits() {
         return deck.getSuits();
@@ -54,6 +51,28 @@ public abstract class Board {
     public void river(ArrayList<Card> Deck) {
         table.add(Deck.get(0));
         Deck.remove(0);
+    }
+    
+    public int indexOfRank(String key){
+        int index = -1;
+        for(int i = 0; i < getRanks().length; i++){
+            if(getRanks()[i].equals(key)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    
+    public int indesOfSuit(String key){
+        int index = -1;
+        for(int i = 0; i < getSuits().length; i++){
+            if(getSuits()[i].equals(key)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public void resetDeck() {

@@ -17,9 +17,9 @@ public class HoldemRunner {
         Holdem game = new Holdem(5);
         Scanner key = new Scanner(System.in);
         ArrayList<Card> hand = new ArrayList<Card>(2);
-        hand = game.dealCards();
         player user = new player(hand, 1500);
         while (!user.didFold()) {
+            hand = game.dealCards();
             System.out.print("Your cards are : " + hand.toString() + "\nPlayers are the dealer and you" + "\nAnte is " + game.getAnte() + "\nDo you want to call?");
             //String ans = key.nextLine();
             String ans = "yes";
@@ -35,7 +35,9 @@ public class HoldemRunner {
             game.theFlop();
             System.out.println(game.getTable().toString());
             
-            
+            game.clearDeck();
+            hand = null;
+            game.clearTable();
         }
     }
 

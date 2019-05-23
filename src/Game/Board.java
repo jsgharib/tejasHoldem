@@ -83,4 +83,10 @@ public abstract class Board {
     public List<Card> getTable(){
         return table;
     }
+    
+    public void clearDeck(){
+        deck.clear();
+        table.clear();
+        deck = new Deck();
+    }
 }

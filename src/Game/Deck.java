@@ -57,6 +57,10 @@ public class Deck {
         Card c = cards.get(size);
         return c;
     }
+    
+    public void clear(){
+        cards.clear();
+    }
 
     @Override
     public String toString() {

@@ -25,32 +25,38 @@ public abstract class Board {
     public String[] getRanks() {
         return deck.getRanks();
     }
+    
+    public int getAnte(){
+        return blind;
+    }
 
-    public void dealCards(Card[] playerHand) {
+    public ArrayList<Card> dealCards() {
+        ArrayList<Card> playerHand = new ArrayList<Card>(2);
         for (int i = 0; i < 2; i++) {
-            playerHand[i] = deck.deal();
+            playerHand.add(deck.deal());
         }
+        return playerHand;
     }
 
     public int getPot() {
         return thePot;
     }
 
-    public void theFlop(ArrayList<Card> Deck) {
+    public void addBet(int amount) {
+        thePot += amount;
+    }
+    public void theFlop() {
         for (int i = 0; i < 3; i++) {
-            table.add(Deck.get(0));
-            Deck.remove(0);
+            table.add(deck.deal());
         }
     }
 
-    public void turn(ArrayList<Card> Deck) {
-        table.add(Deck.get(0));
-        Deck.remove(0);
+    public void turn() {
+        table.add(deck.deal());
     }
 
-    public void river(ArrayList<Card> Deck) {
-        table.add(Deck.get(0));
-        Deck.remove(0);
+    public void river() {
+        table.add(deck.deal());
     }
     
     public int indexOfRank(String key){
@@ -74,8 +80,7 @@ public abstract class Board {
         }
         return index;
     }
-
-    public void resetDeck() {
-
+    public List<Card> getTable(){
+        return table;
     }
 }

@@ -7,27 +7,22 @@ import java.util.Scanner;
 public class player extends AbstractPlayer {
 
     private ArrayList<Card> hand;
-    private int bet;
     private boolean check;
     private boolean fold;
     private int totalMoney;
 
     public player(ArrayList<Card> dealt, int startingCash) {
         hand = dealt;
+        fold = false;
         totalMoney = startingCash;
     }
     
-    public void increasebet(int amount){
-        bet += amount;
-    }
-    
-    public void setBet(int amount){
-        bet = amount;
-    }
-    
-    public int placeBet(){
+    public void placeBet(int bet){
         totalMoney -= bet;
-        return bet;
+    }
+    
+    public boolean didFold(){
+        return fold;
     }
     
     public void fold(){

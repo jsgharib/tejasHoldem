@@ -21,6 +21,7 @@ public class gameFrame extends javax.swing.JFrame {
         inputBet = new javax.swing.JSpinner();
         betPlacer = new javax.swing.JButton();
         folder = new javax.swing.JButton();
+        caller = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +47,14 @@ public class gameFrame extends javax.swing.JFrame {
             }
         });
 
+        caller.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        caller.setText("Call");
+        caller.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                callerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -54,17 +63,19 @@ public class gameFrame extends javax.swing.JFrame {
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(inputBet, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(betPlacer)
-                        .addGap(127, 127, 127))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                         .addComponent(logo)
-                        .addGap(75, 75, 75))))
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(folder)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(75, 75, 75))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(folder)
+                            .addComponent(inputBet, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(betPlacer)
+                            .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(caller)))
+                        .addGap(127, 127, 127))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,9 +86,11 @@ public class gameFrame extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputBet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(betPlacer))
-                .addGap(18, 18, 18)
-                .addComponent(folder)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(folder)
+                    .addComponent(caller))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -96,16 +109,25 @@ public class gameFrame extends javax.swing.JFrame {
 
     private void betPlacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betPlacerActionPerformed
         pressed = true;
-        HoldemRunner.bet = (int)inputBet.getValue();
+        HoldemRunner.bet = (int) inputBet.getValue();
     }//GEN-LAST:event_betPlacerActionPerformed
 
     private void folderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_folderActionPerformed
-        player.fold = true;
+        HoldemRunner.fold = true;
     }//GEN-LAST:event_folderActionPerformed
-    public static boolean pressed = false;
 
-    public static boolean isPressed(){
+    private void callerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callerActionPerformed
+        callPressed = true;
+        HoldemRunner.call = true;
+    }//GEN-LAST:event_callerActionPerformed
+    public static boolean pressed = false;
+    public static boolean callPressed = false;
+
+    public static boolean isPressed() {
         return pressed;
+    }
+    public static boolean callPressed() {
+        return callPressed;
     }
 
     /**
@@ -146,6 +168,7 @@ public class gameFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton betPlacer;
+    private javax.swing.JButton caller;
     private javax.swing.JButton folder;
     private javax.swing.JSpinner inputBet;
     private javax.swing.JSpinner jSpinner1;

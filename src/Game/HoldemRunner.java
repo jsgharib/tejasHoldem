@@ -13,7 +13,9 @@ public class HoldemRunner {
     public static String[] suits = {"clubs", "spades", "hearts", "diamonds"};
     public static String[] ranks = {"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"};
     public static int bet;
-    
+    public static boolean call;
+    public static boolean fold = false;
+
     public static void main(String[] args) throws IOException {
         gameFrame gui = new gameFrame();
         gui.main(args);
@@ -26,13 +28,16 @@ public class HoldemRunner {
         Scanner key = new Scanner(System.in);
         ArrayList<Card> hand = new ArrayList<Card>(2);
         player user = new player(hand, 1500);
-        while (!user.didFold()) {
+        while (!fold) {
             hand = game.dealCards();
-            System.out.print("Your cards are : " + hand.toString() + "\nPlayers are the dealer and you" + "\nAnte is " + game.getAnte() + "\nDo you want to call?");
-            String ans = key.nextLine();
-            if (!ans.toLowerCase().equals("yes")) {
+            System.out.println("Your cards are : " + hand.toString() + "\nPlayers are the dealer and you" + "\nAnte is " + game.getAnte() + "\nDo you want to call?");
+            while (!gui.callPressed()) {
+                System.out.print("");
+            }
+            gameFrame.callPressed = false;
+            if (fold) {
                 System.out.println("You Folded");
-                user.fold();
+                break;
             }
             game.addBet(50);
             bettingRound(gui);
@@ -42,11 +47,14 @@ public class HoldemRunner {
             System.out.println("The pot is " + game.getPot());
             game.theFlop();
             System.out.println(game.getTable().toString());
-            System.out.print("Your cards are : " + hand.toString() + "\nDo you want to call?");
-            String ans2 = key.nextLine();
-            if (!ans2.toLowerCase().equals("yes")) {
+            System.out.println("Your cards are : " + hand.toString() + "\nDo you want to call?");
+            while (!gui.callPressed()) {
+                System.out.print("");
+            }
+            gameFrame.callPressed= false;
+            if (fold) {
                 System.out.println("You Folded");
-                user.fold();
+                break;
             }
             bettingRound(gui);
             user.placeBet(bet);
@@ -55,11 +63,14 @@ public class HoldemRunner {
 
             game.turn();
             System.out.println(game.getTable().toString());
-            System.out.print("Your cards are : " + hand.toString() + "\nDo you want to call?");
-            String ans3 = key.nextLine();
-            if (!ans3.toLowerCase().equals("yes")) {
+            System.out.println("Your cards are : " + hand.toString() + "\nDo you want to call?");
+            while (!gui.callPressed()) {
+                System.out.print("");
+            }
+            gameFrame.callPressed = false;
+            if (fold) {
                 System.out.println("You Folded");
-                user.fold();
+                break;
             }
             bettingRound(gui);
             user.placeBet(bet);
@@ -67,20 +78,32 @@ public class HoldemRunner {
             System.out.println("The pot is " + game.getPot());
             game.river();
             System.out.println(game.getTable().toString());
-            System.out.print("Your cards are : " + hand.toString() + "\nDo you want to call?");
-            String ans4 = key.nextLine();
-            if (!ans4.toLowerCase().equals("yes")) {
+            System.out.println("Your cards are : " + hand.toString() + "\nDo you want to call?");
+            while (!gui.callPressed()) {
+                System.out.print("");
+            }
+            gameFrame.pressed = false;
+            if (fold) {
                 System.out.println("You Folded");
-                user.fold();
+                break;
             }
             bettingRound(gui);
             user.placeBet(bet);
             game.addBet(bet);
             System.out.println("The pot is " + game.getPot());
             game.storePot();
+            game.combineHands(hand, Board.table);
+            List<Card> finalHand = new ArrayList<Card>(2);
+            if(game.isDouble()){
+                finalHand = game.getDouble();
+                System.out.println("The double is the " + finalHand.get(0).toString() + " and the " + finalHand.get(1).toString());
+            }
+            else{
+                System.out.println("No Doubles");
+            }
+            System.out.println("Game over");
             hand.clear();
             game.reset();
-
         }
         System.out.println("You folded.");
     }
@@ -90,6 +113,7 @@ public class HoldemRunner {
         while (!gui.isPressed()) {
             System.out.print("");
         }
+        gameFrame.pressed = false;
     }
 
     public static void test() {

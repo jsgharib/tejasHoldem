@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Board {
 
-    private ArrayList<Card> table;
+    public static ArrayList<Card> table;
     private Deck deck;
     public int blind;
     public int thePot;

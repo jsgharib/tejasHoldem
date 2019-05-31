@@ -6,26 +6,29 @@ import java.util.Scanner;
 
 public class player extends AbstractPlayer {
 
-    private ArrayList<Card> hand;
-    private boolean check;
-    private boolean fold;
-    private int totalMoney;
+    public ArrayList<Card> hand;
+    public boolean check;
+    public static boolean fold;
+    public int totalMoney;
 
     public player(ArrayList<Card> dealt, int startingCash) {
         hand = dealt;
         fold = false;
         totalMoney = startingCash;
     }
-    
-    public void placeBet(int bet){
+    public player(){
+        
+    }
+
+    public void placeBet(int bet) {
         totalMoney -= bet;
     }
-    
-    public boolean didFold(){
+
+    public boolean didFold() {
         return fold;
     }
-    
-    public void fold(){
+
+    public void fold() {
         fold = true;
     }
 

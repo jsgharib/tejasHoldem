@@ -7,8 +7,8 @@ public abstract class Board {
 
     private ArrayList<Card> table;
     private Deck deck;
-    private int blind;
-    private int thePot;
+    public int blind;
+    public int thePot;
 
     public Board(int size, int ante) {
         table = new ArrayList<Card>(size);
@@ -16,7 +16,6 @@ public abstract class Board {
         thePot = 0;
         deck = new Deck();
     }
-    
 
     public String[] getSuits() {
         return deck.getSuits();
@@ -83,6 +82,11 @@ public abstract class Board {
     public List<Card> getTable(){
         return table;
     }
+    public void reset(){
+        clearDeck();
+        thePot = 0;
+    }
+    
     
     public void clearDeck(){
         deck.clear();

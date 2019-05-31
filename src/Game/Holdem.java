@@ -1,11 +1,19 @@
 package Game;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.logging.Level;
 
 public class Holdem extends Board {
 
-    private List<Card> totalHand;
+    private final List<Card> totalHand;
+    private FileWriter writer;
+    private final File file = new File("output.txt");
 
     public Holdem(int ante) {
         super(5, ante);
@@ -141,5 +149,45 @@ public class Holdem extends Board {
             }
         }
         return biggestHand;
+    }
+
+    public void rankSort(List<Card> hand) {
+        int n = hand.size();
+        Card temp;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                 if (compareRanks(hand.get( j ), hand.get(j+1)) > 0) {
+                    
+                 temp = hand.get( j );
+                    
+                 hand.set(j, hand.get(j + 1));
+                    
+                 hand.set(j + 1, temp);
+                    
+                 }
+                 
+                 int diff = n-i;
+                 System.out.println(hand.get(i) + "    \t" + i + "\t" + j + "\t" +  diff);
+                 
+            }
+        }
+        System.out.print("\n");
+    }
+    
+    public void storePot(){
+        try {
+            writer = new FileWriter("output.txt");
+            writer.write("The final pot is " + getPot());
+        } catch (IOException ex) {
+            Logger.getLogger(Holdem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public int compareRanks(Card a, Card b) {
+        return a.rankCompareTo(b);
+    }
+
+    public int compareSuit(Card a, Card b) {
+        return a.suitCompareTo(b);
     }
 }
